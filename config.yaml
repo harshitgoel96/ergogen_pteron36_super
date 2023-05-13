@@ -93,3 +93,16 @@ pcbs:
             - ref: mirror_matrix_inner_top
           shift: [0, 22]
           rotate: -8
+      fc:
+        what: fh12_12
+        params:
+          P1: VCC
+          P2: GND
+          P3: SDA
+          P4: SCL
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [0, -60]
+          rotate: 180
