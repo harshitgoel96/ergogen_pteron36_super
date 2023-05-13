@@ -1,0 +1,82 @@
+points:
+  zones:
+    matrix:
+      anchor:
+        rotate: 5
+      columns:
+        pinky:
+          key.column_net: P4
+          key.mirror.column_net: P9
+        ring:
+          key.splay: -5
+          key.origin: [-12, -19]
+          key.stagger: 15
+          key.column_net: P4
+          key.mirror.column_net: P9
+        middle:
+          key.stagger: 5
+          key.column_net: P4
+          key.mirror.column_net: P9
+        index:
+          key.stagger: -6
+          key.column_net: P4
+          key.mirror.column_net: P9
+        inner:
+          key.stagger: -2
+          key.column_net: P4
+          key.mirror.column_net: P9
+      rows:
+        bottom:
+          row_net: P21
+          mirror.row_net: P18
+        home:
+          row_net: P21
+          mirror.row_net: P18
+        top:
+          row_net: P21
+          mirror.row_net: P18
+    thumbfan:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [1, -19]
+      columns:
+        near:
+          key.splay: -15
+          key.origin: [-7, -5]
+          key.column_net: P4
+          key.mirror.column_net: P9
+        home:
+          key.splay: -15
+          key.origin: [-9, -9]
+          key.column_net: P4
+          key.mirror.column_net: P9
+        far:
+          key.splay: -15
+          key.origin: [-9, -9]
+          key.column_net: P4
+          key.mirror.column_net: P9
+      rows:
+        thumb:
+          row_net: P21
+          mirror.row_net: P18
+  rotate: -20
+  mirror: &mirror
+    ref: matrix_pinky_home
+    distance: 240
+pcbs:
+  ergogen_pteron:
+    footprints:
+      keys:
+        what: mx
+        where: true
+        params:
+          from: "{{row_net}}"
+          to: "{{column_net}}"
+      mcu:
+        what: promicro
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [0, 22]
+          rotate: -8
