@@ -5,36 +5,33 @@ points:
         rotate: 5
       columns:
         pinky:
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C1
+          key.mirror.column_net: C10
         ring:
           key.splay: -5
           key.origin: [-12, -19]
           key.stagger: 15
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C2
+          key.mirror.column_net: C9
         middle:
           key.stagger: 5
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C3
+          key.mirror.column_net: C8
         index:
           key.stagger: -6
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C4
+          key.mirror.column_net: C7
         inner:
           key.stagger: -2
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C5
+          key.mirror.column_net: C6
       rows:
         bottom:
-          row_net: P21
-          mirror.row_net: P18
+          row_net: R3
         home:
-          row_net: P21
-          mirror.row_net: P18
+          row_net: R2
         top:
-          row_net: P21
-          mirror.row_net: P18
+          row_net: R1
     thumbfan:
       anchor:
         ref: matrix_inner_bottom
@@ -43,37 +40,53 @@ points:
         near:
           key.splay: -15
           key.origin: [-7, -5]
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C3
+          key.mirror.column_net: C8
         home:
           key.splay: -15
           key.origin: [-9, -9]
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C4
+          key.mirror.column_net: C7
         far:
           key.splay: -15
           key.origin: [-9, -9]
-          key.column_net: P4
-          key.mirror.column_net: P9
+          key.column_net: C5
+          key.mirror.column_net: C6
       rows:
         thumb:
-          row_net: P21
-          mirror.row_net: P18
+          row_net: R4
   rotate: -20
   mirror: &mirror
     ref: matrix_pinky_home
     distance: 240
 pcbs:
-  ergogen_pteron:
+  ergogen_pteron36_super:
     footprints:
       keys:
-        what: mx
+        what: mx_socket_mxlp_choc
         where: true
         params:
           from: "{{row_net}}"
           to: "{{column_net}}"
       mcu:
         what: promicro
+        params:
+          P2: SDA
+          P3: SCL
+          P21: R1
+          P20: R2
+          P19: R3
+          P18: R4
+          P4: C1
+          P5: C2
+          P6: C3
+          P7: C4
+          P8: C5
+          P9: C6
+          P10: C7
+          P16: C8
+          P14: C9
+          P15: C10
         where:
           aggregate.parts:
             - ref: matrix_inner_top
