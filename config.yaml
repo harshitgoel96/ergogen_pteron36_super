@@ -1,3 +1,26 @@
+vars:
+  version: &kb_version 'Ergogen Pteron36 v0.1'
+
+units:
+  # Key and keycap measures
+  kx: u  # spacing between key centers (X-axis)
+  ky: u  # spacing between key centers (X-axis)
+  ks: 19  # horizontal space between columns (default: 19)
+  kp: 19  # vertical padding between keys (deafult: 19)
+  kcow: 14  # key cutout hole width (cherry: 14, choc: 13.8)
+  kcoh: 14  # key cutout hole height (cherry: 14, choc: 13.8)
+  keycw: 18  # keycap width (cherry: 18, choc: 17.5)
+  keych: 18  # keycap height (cherry: 18, choc: 16.5)
+  hand_rotation: 0
+
+  # Physical measures
+  screw_radius: 1.1  # M2 screws
+  spacer_radius: 2.05  # M2 standoffs
+  fillet_radius: 0.5
+
+  # Thumb splay
+  splay_thumb_middle: -15
+  splay_thumb_far: -15
 points:
   zones:
     matrix:
@@ -35,7 +58,7 @@ points:
     thumbfan:
       anchor:
         ref: matrix_inner_bottom
-        shift: [1, -19]
+        shift: [1, -20]
       columns:
         near:
           key.splay: -15
@@ -44,22 +67,23 @@ points:
           key.mirror.column_net: C8
         home:
           key.splay: -15
-          key.origin: [-9, -9]
+          key.origin: [-9, -11]
           key.column_net: C4
           key.mirror.column_net: C7
         far:
           key.splay: -15
-          key.origin: [-9, -9]
+          key.origin: [-9, -11]
           key.column_net: C5
           key.mirror.column_net: C6
       rows:
-        thumb:
+        home:
           row_net: R4
   rotate: -20
   mirror: &mirror
     ref: matrix_pinky_home
     distance: 240
-pcbs:
+
+pcbs:  
   ergogen_pteron36_super:
     footprints:
       keys:
@@ -91,8 +115,8 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [0, 22]
-          rotate: -8
+          shift: [0, 0]
+          rotate: -90
       fc:
         what: fh12_12
         params:
@@ -104,5 +128,5 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [0, -60]
+          shift: [0, -48]
           rotate: 180
