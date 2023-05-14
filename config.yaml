@@ -5,6 +5,8 @@ units:
   # Key and keycap measures
   kx: u  # spacing between key centers (X-axis)
   ky: u  # spacing between key centers (X-axis)
+  px: kx + 4
+  py: ky + 4
   ks: 19  # horizontal space between columns (default: 19)
   kp: 19  # vertical padding between keys (deafult: 19)
   kcow: 14  # key cutout hole width (cherry: 14, choc: 13.8)
@@ -25,6 +27,7 @@ points:
   zones:
     matrix:
       anchor:
+        shift: [100, -100]
         rotate: 5
       columns:
         pinky:
@@ -82,9 +85,88 @@ points:
   mirror: &mirror
     ref: matrix_pinky_home
     distance: 240
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [u,u]
+  keys:
+    - what: rectangle
+      where: true
+      bound: false
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_pinky_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_ring_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_top
+          shift: [0.5px,0.5py]
+        - ref: matrix_inner_top
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_inner_top
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_top
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_ring_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [0.5px,-0.5py]
+        - ref: mirror_matrix_ring_bottom
+          shift: [-0.35px,-0.5py]
+        - ref: mirror_matrix_index_bottom
+          shift: [0.5px,-0.6py]
+        - ref: mirror_thumbfan_near_home
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbfan_near_home
+          shift: [0.4px,-0.5py]
+        - ref: mirror_thumbfan_home_home
+          shift: [0.4px,-0.5py]
+        - ref: mirror_thumbfan_far_home
+          shift: [0.5px,-0.5py]
+        - ref: mirror_thumbfan_far_home
+          shift: [0.5px,0.42py]
+        - ref: thumbfan_far_home
+          shift: [0.5px,0.42py]
+        - ref: thumbfan_far_home
+          shift: [0.5px,-0.5py]
+        - ref: thumbfan_home_home
+          shift: [0.4px,-0.5py]
+        - ref: thumbfan_near_home
+          shift: [0.4px,-0.5py]
+        - ref: thumbfan_near_home
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_index_bottom
+          shift: [0.5px,-0.6py]
+        - ref: matrix_ring_bottom
+          shift: [-0.35px,-0.5py]
+        - ref: matrix_pinky_bottom
+          shift: [0.5px,-0.5py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5px,-0.5py]
+       
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
 
 pcbs:  
   ergogen_pteron36_super:
+    outlines:
+      main:
+        outline: board
     footprints:
       keys:
         what: mx_socket_mxlp_choc
@@ -115,7 +197,7 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [0, 0]
+          shift: [0, -14]
           rotate: -90
       fc:
         what: fh12_12
@@ -128,5 +210,5 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [0, -48]
+          shift: [0, -57.5]
           rotate: 180
