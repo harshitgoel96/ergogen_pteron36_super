@@ -212,3 +212,48 @@ pcbs:
             - ref: mirror_matrix_inner_top
           shift: [0, -57.5]
           rotate: 180
+      res_sda:
+        what: r_0805
+        params:
+          P1: VCC
+          P2: SDA
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [8.5, -57.5]
+          rotate: 90
+      res_scl:
+        what: r_0805
+        params:
+          P1: VCC
+          P2: SCL
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [-8.5, -57.5]
+          rotate: 90
+      jumper_f:
+        what: jumper
+        params:
+          from: RST
+          to: GND
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [15, 0]
+          rotate: -90
+      jumper_b:
+        what: jumper
+        params:
+          from: RST
+          to: GND
+          side: 'B'
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [15, 0]
+          rotate: -90
