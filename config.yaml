@@ -5,8 +5,8 @@ units:
   # Key and keycap measures
   kx: u  # spacing between key centers (X-axis)
   ky: u  # spacing between key centers (X-axis)
-  px: kx + 4
-  py: ky + 4
+  px: kx +4
+  py: ky +4
   ks: 19  # horizontal space between columns (default: 19)
   kp: 19  # vertical padding between keys (deafult: 19)
   kcow: 14  # key cutout hole width (cherry: 14, choc: 13.8)
@@ -14,6 +14,20 @@ units:
   keycw: 18  # keycap width (cherry: 18, choc: 17.5)
   keych: 18  # keycap height (cherry: 18, choc: 16.5)
   hand_rotation: 0
+  hand_dist: 50
+
+#trackpad settings
+  trackpad_rad: 25
+  trackpad_sx: 0
+  trackpad_sy: -0.45py
+  trackpad_rot: 180
+
+#pro micro settings
+  prmw: 18
+  prmh: 35
+  prm_sx: 0
+  prm_sy: 0
+  prm_rot: -90
 
   # Physical measures
   screw_radius: 1.1  # M2 screws
@@ -83,18 +97,41 @@ points:
           row_net: R4
   rotate: -20
   mirror: &mirror
-    ref: matrix_pinky_home
-    distance: 240
+    ref: matrix_inner_top
+    distance: hand_dist
 outlines:
   raw:
     - what: rectangle
       where: true
       size: [u,u]
+  _switch_cutouts:
+    - what: rectangle
+      where: true
+      size: [kcow, kcoh]
   keys:
     - what: rectangle
       where: true
       bound: false
       size: [kx-0.5,ky-0.5]
+  promicro:
+    - what: rectangle
+      size: [prmh,prmw]
+      where:
+        aggregate.parts:
+          - ref: matrix_inner_top
+          - ref: mirror_matrix_inner_top
+        shift: [prm_sx, prm_sy]
+        rotate: prm_rot
+    
+  cirque_add:
+    - what: circle
+      radius: trackpad_rad
+      where:
+          aggregate.parts:
+            - ref: matrix_inner_bottom
+            - ref: mirror_matrix_inner_bottom
+          shift: [trackpad_sx, trackpad_sy]
+          rotate: trackpad_rot
   board:
     - what: polygon
       operation: stack
@@ -108,9 +145,15 @@ outlines:
         - ref: matrix_middle_top
           shift: [0.5px,0.5py]
         - ref: matrix_inner_top
-          shift: [0.5px,0.5py]
+          shift: [0.45px,0.5py]
+        - ref: matrix_inner_top
+          shift: [0.275px,1py]
+
         - ref: mirror_matrix_inner_top
-          shift: [0.5px,0.5py]
+          shift: [0.275px,1py]
+        - ref: mirror_matrix_inner_top
+          shift: [0.45px,0.5py]  
+        
         - ref: mirror_matrix_middle_top
           shift: [0.5px,0.5py]
         - ref: mirror_matrix_middle_top
@@ -156,11 +199,19 @@ outlines:
         - ref: matrix_pinky_bottom
           shift: [-0.5px,-0.5py]
        
-      fillet: 2
-  combo:
-    - name: board
-    - operation: subtract
+      fillet: 1
+  preview:
+    - what: outline
+      name: board
+    - what: outline
       name: keys
+      operation: stack
+    - what: outline
+      name: cirque_add
+      operation: stack
+    - what: outline
+      name: promicro
+      operation: stack
 
 pcbs:  
   ergogen_pteron36_super:
@@ -182,23 +233,23 @@ pcbs:
           P21: R1
           P20: R2
           P19: R3
-          P18: R4
-          P4: C1
-          P5: C2
-          P6: C3
-          P7: C4
-          P8: C5
-          P9: C6
-          P10: C7
-          P16: C8
-          P14: C9
-          P15: C10
+          P18: C5
+          P4: R4
+          P5: C6
+          P6: C7
+          P7: C8
+          P8: C9
+          P9: C10
+          P10: C1
+          P16: C2
+          P14: C3
+          P15: C4
         where:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [0, -14]
-          rotate: -90
+          shift: [prm_sx, prm_sy]
+          rotate: prm_rot
       fc:
         what: fh12_12
         params:
@@ -208,10 +259,10 @@ pcbs:
           P4: SCL
         where:
           aggregate.parts:
-            - ref: matrix_inner_top
-            - ref: mirror_matrix_inner_top
-          shift: [0, -57.5]
-          rotate: 180
+            - ref: matrix_inner_bottom
+            - ref: mirror_matrix_inner_bottom
+          shift: [trackpad_sx, trackpad_sy]
+          rotate: trackpad_rot
       res_sda:
         what: r_0805
         params:
@@ -219,9 +270,9 @@ pcbs:
           P2: SDA
         where:
           aggregate.parts:
-            - ref: matrix_inner_top
-            - ref: mirror_matrix_inner_top
-          shift: [8.5, -57.5]
+            - ref: matrix_inner_bottom
+            - ref: mirror_matrix_inner_bottom
+          shift: [trackpad_sx+8.5, trackpad_sy]
           rotate: 90
       res_scl:
         what: r_0805
@@ -230,9 +281,9 @@ pcbs:
           P2: SCL
         where:
           aggregate.parts:
-            - ref: matrix_inner_top
-            - ref: mirror_matrix_inner_top
-          shift: [-8.5, -57.5]
+            - ref: matrix_inner_bottom
+            - ref: mirror_matrix_inner_bottom
+          shift: [trackpad_sx-8.5, trackpad_sy]
           rotate: 90
       jumper_f:
         what: jumper
@@ -243,7 +294,7 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [15, 0]
+          shift: [12, 0]
           rotate: -90
       jumper_b:
         what: jumper
@@ -255,5 +306,5 @@ pcbs:
           aggregate.parts:
             - ref: matrix_inner_top
             - ref: mirror_matrix_inner_top
-          shift: [15, 0]
+          shift: [12, 0]
           rotate: -90
