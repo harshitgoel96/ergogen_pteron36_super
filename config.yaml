@@ -15,7 +15,7 @@ units:
   keych: 18  # keycap height (cherry: 18, choc: 16.5)
   hand_rotation: 0
   hand_dist: 50
-
+  
 #trackpad settings
   trackpad_rad: 25
   trackpad_sx: 0
@@ -29,14 +29,18 @@ units:
   prm_sy: 0
   prm_rot: -90
 
-  # Physical measures
+# Physical measures
   screw_radius: 1.1  # M2 screws
   spacer_radius: 2.05  # M2 standoffs
   fillet_radius: 0.5
 
-  # Thumb splay
+ # Thumb splay
   splay_thumb_middle: -15
   splay_thumb_far: -15
+
+# screw measures
+  m3_screw_radius: 3.4/2
+
 points:
   zones:
     matrix:
@@ -108,6 +112,50 @@ outlines:
     - what: rectangle
       where: true
       size: [kcow, kcoh]
+  _screws:
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: matrix_pinky_top
+            shift: [0.1ks, 0.75 kp]
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: mirror_matrix_pinky_top
+            shift: [0.1ks, 0.75 kp]
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: matrix_index_top
+            shift: [-0.2ks, 0.7 kp]
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: mirror_matrix_index_top
+            shift: [-0.2ks, 0.7 kp]
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: matrix_middle_bottom
+            shift: [0, -0.7 kp]
+    - what: circle
+      radius: m3_screw_radius
+      adjust:
+            ref: mirror_matrix_middle_bottom
+            shift: [0, -0.7 kp]
+    - what: circle
+      radius: m3_screw_radius
+      where:
+          aggregate.parts:
+            - ref: thumbfan_far_home
+            - ref: mirror_thumbfan_far_home
+    - what: circle
+      radius: m3_screw_radius
+      where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [prm_sx, prm_sy]
   keys:
     - what: rectangle
       where: true
@@ -212,6 +260,16 @@ outlines:
     - what: outline
       name: promicro
       operation: stack
+    - what: outline
+      name: _screws
+      operation: stack
+
+  pcb_board:
+    - what: outline
+      name: board
+    - what: outline
+      name: _screws
+      operation: subtract
 
 pcbs:  
   ergogen_pteron36_super:
