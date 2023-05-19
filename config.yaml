@@ -267,15 +267,12 @@ outlines:
   pcb_board:
     - what: outline
       name: board
-    - what: outline
-      name: _screws
-      operation: subtract
 
 pcbs:  
   ergogen_pteron36_super:
     outlines:
       main:
-        outline: board
+        outline: pcb_board
     footprints:
       keys:
         what: mx_socket_mxlp_choc
@@ -366,3 +363,62 @@ pcbs:
             - ref: mirror_matrix_inner_top
           shift: [12, 0]
           rotate: -90
+      mh_1:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: matrix_pinky_top
+          shift: [0.1ks, 0.75 kp]
+      mh_2:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: mirror_matrix_pinky_top
+          shift: [0.1ks, 0.75 kp]
+      mh_3:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: matrix_index_top
+          shift: [-0.2ks, 0.7 kp]
+      mh_4:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: mirror_matrix_index_top
+          shift: [-0.2ks, 0.7 kp]
+      mh_5:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: matrix_middle_bottom
+          shift: [0, -0.7 kp]
+      mh_6:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          ref: mirror_matrix_middle_bottom
+          shift: [0, -0.7 kp]
+      mh_7:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          aggregate.parts:
+            - ref: thumbfan_far_home
+            - ref: mirror_thumbfan_far_home
+      mh_8:
+        what: m3_mounting
+        params:
+          GND: GND
+        where:
+          aggregate.parts:
+            - ref: matrix_inner_top
+            - ref: mirror_matrix_inner_top
+          shift: [prm_sx, prm_sy]
